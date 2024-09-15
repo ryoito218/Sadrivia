@@ -1,27 +1,27 @@
 from sqlalchemy.orm import Session
-from .schemas import Search
-from .models import Trivia
+from . import models
+from typing import Optional
 
+def get_trivias(db: Session, keyword: Optional[str] = None, category: Optional[str] = None, language: Optional[str] = None):
 
-def get_trivias(search: Search, db: Session):
+    query = db.query(models.Trivia)
 
-    query = db.query(Trivia)
-
-    if search.keyword:
-        if search.language == 1:
-            query = query.filter(Trivia.japanese.ilike(f"%{search.keyword}%"))
-        if search.language == 2:
-            query = query.filter(Trivia.english.ilike(f"%{search.keyword}%"))
-        if search.language == 3:
-            query = query.filter(Trivia.chinese1.ilike(f"%{search.keyword}%"))
-        if search.language == 4:
-            query = query.filter(Trivia.chinese2.ilike(f"%{search.keyword}%"))
-        if search.language == 5:
-            query = query.filter(Trivia.korean.ilike(f"%{search.keyword}%"))
-        if search.language == 6:
-            query = query.filter(Trivia.mongolian.ilike(f"%{search.keyword}%"))
+    if keyword:
+        if language == "japanese":
+            query = query.filter(models.Trivia.japanese.ilike(f"%{keyword}%"))
+        if language == "english":
+            query = query.filter(models.Trivia.english.ilike(f"%{keyword}%"))
+        if language == "chinese1":
+            query = query.filter(models.Trivia.chinese1.ilike(f"%{keyword}%"))
+        if language == "chinese2":
+            query = query.filter(models.Trivia.chinese2.ilike(f"%{keyword}%"))
+        if language == "korean":
+            query = query.filter(models.Trivia.korean.ilike(f"%{keyword}%"))
+        if language == "mongolian":
+            query = query.filter(models.Trivia.mongolian.ilike(f"%{keyword}%"))
     
-    if search.category != "未選択" and search.category:
-        query = query.filter(Trivia.category == search.category)
+    if category != "unselected" and category:
+        category = category.capitalize()
+        query = query.filter(models.Trivia.category == category)
     
     return query.all()

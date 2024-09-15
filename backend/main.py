@@ -28,3 +28,7 @@ def get_db():
 @app.get("/get_trivias", response_model=List[schemas.Trivia])
 async def get_trivias(keyword: Optional[str] = None, category: Optional[str] = None, language: Optional[str] = None, db: Session = Depends(get_db)):
     return crud.get_trivias(db, keyword, category, language)
+
+@app.get("/get_trivia/{id}", response_model=schemas.Trivia)
+async def get_trivia(id: int):
+    return 

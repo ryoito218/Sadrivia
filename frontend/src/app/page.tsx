@@ -1,6 +1,14 @@
 import Link from "next/link"
+import { useState } from "react";
 
 export default function Home() {
+
+  const [keyword, setKeyword] = useState<string>("");
+  const [category, setCategory] = useState<string>("unselected");
+  const [language, setLanguage] = useState<string>("japanese");
+
+  
+
   return (
     <div>
       <div className="container mx-auto">
@@ -12,12 +20,12 @@ export default function Home() {
             <form className="flex flex-col justify-center w-3/4">
               <div className="flex flex-col mx-3">
                 <label htmlFor="keyword">Keyword</label>
-                <input type="text" id="keyword" className="w-full h-10" />
+                <input type="text" id="keyword" className="w-full h-10" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
               </div>
               <div className="flex">
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="category">Category</label>
-                  <select className="w-full h-10" id="category">
+                  <select className="w-full h-10" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="unselected">Unselected（未選択）</option>
                     <option value="history">History（歴史）</option>
                     <option value="person">Person（人物）</option>
@@ -33,7 +41,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="language">Language</label>
-                  <select className="w-full h-10" id="language">
+                  <select className="w-full h-10" id="language" value={language} onChange={(e) => setLanguage(e.target.value)}>
                     <option value="japanese">Japanese（日本語）</option>
                     <option value="english">English（英語）</option>
                     <option value="chinese1">Chinese（簡体字中国語）</option>

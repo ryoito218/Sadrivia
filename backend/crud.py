@@ -25,3 +25,6 @@ def get_trivias(db: Session, keyword: Optional[str] = None, category: Optional[s
         query = query.filter(models.Trivia.category == category)
     
     return query.all()
+
+def get_trivia(db: Session, id: int):
+    return db.query(models.Trivia).filter(models.Trivia.id == id).first()

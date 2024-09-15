@@ -1,14 +1,51 @@
+"use client";
 import Link from "next/link"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+type Trivia = {
+  id: string;
+  japanese: string;
+  english: string;
+  chinese1: string;
+  chinese2: string;
+  korean: string;
+  mongolian: string;
+  category: string;
+  url1: string;
+  url2: string;
+  address1: string;
+  address2: string; 
+}
 
 export default function Home() {
 
   const [keyword, setKeyword] = useState<string>("");
   const [category, setCategory] = useState<string>("unselected");
   const [language, setLanguage] = useState<string>("japanese");
+  const [trivias, setTrivias] = useState<Trivia[]>([]);
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch(
+        `http://127.0.0.1:8000/get_trivias?keyword=${keyword}&category=${category}&language=${language}`
+      );
+      const data = await res.json();
+      setTrivias(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    console.log(trivias);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchData();
+  }
   
-
   return (
     <div>
       <div className="container mx-auto">
@@ -17,7 +54,7 @@ export default function Home() {
         
         <div className="flex flex-col">
           <div className="flex justify-center">
-            <form className="flex flex-col justify-center w-3/4">
+            <form onSubmit={handleSubmit} className="flex flex-col justify-center w-3/4">
               <div className="flex flex-col mx-3">
                 <label htmlFor="keyword">Keyword</label>
                 <input type="text" id="keyword" className="w-full h-10" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
@@ -52,36 +89,34 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex justify-center">
-                <button className="bg-blue-500 text-white font-bold w-1/2 py-2 px-4 mx-3 my-3 rounded hover:bg-blue-700">
-                  Submit
-                </button>
+                <button className="bg-blue-500 text-white font-bold w-1/2 py-2 px-4 mx-3 my-3 rounded hover:bg-blue-700">Submit</button>
               </div>
             </form>     
           </div>
 
-          <Link href={`detail/1`} className="hover:opacity-75">
-            <div className="flex flex-col my-3">
-              <div className="flex justify-center">
-                <div className="flex rounded overflow-hidden shadow-lg bg-white w-3/4">
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">Card Title Card Title Card Title Card Title Card Title</div>
+          {trivias.map((trivia) => (
+            <Link key={trivia.id} href={`detail/${trivia.id}`} className="hover:opacity-75">
+              <div className="flex flex-col my-3">
+                <div className="flex justify-center">
+                  <div className="flex rounded overflow-hidden shadow-lg bg-white w-3/4">
+                    <div className="px-6 py-4">
+                      <div className="font-bold text-xl mb-2">
+                        {
+                          language === "japanese" ? trivia.japanese :
+                          language === "english" ? trivia.english:
+                          language === "chinese1" ? trivia.chinese1:
+                          language === "chinese2" ? trivia.chinese2:
+                          language === "korean" ? trivia.korean:
+                          language === "mongolian" ? trivia.mongolian:
+                          trivia.japanese
+                        }
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Link>
-
-          <Link href={`detail/1`} className="hover:opacity-75">
-            <div className="flex flex-col my-3">
-              <div className="flex justify-center">
-                <div className="flex rounded overflow-hidden shadow-lg bg-white w-3/4">
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">Card Title Card Title Card Title Card Title Card Title</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Link>
+            </Link>
+          ))}
 
         </div>
         

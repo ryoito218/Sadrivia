@@ -17,6 +17,19 @@ export default function Home() {
               <div className="flex">
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="category">Category</label>
+                  <select id="category">
+                    <option value="unselected">Unselected（未選択）</option>
+                    <option value="history">History（歴史）</option>
+                    <option value="person">Person（人物）</option>
+                    <option value="nature">Nature（自然）</option>
+                    <option value="tradition">Tradition（伝統）</option>
+                    <option value="sport">Sport（スポーツ）</option>
+                    <option value="food">Food（食）</option>
+                    <option value="culture">Culture（文化）</option>
+                    <option value="entertainment">Entertainment（芸能）</option>
+                    <option value="goods">Goods（特産品）</option>
+                    <option value="dialect">Dialect（方言）</option>
+                  </select>
                   <input type="text" id="category" className="w-full h-10" />
                 </div>
                 <div className="flex flex-col w-1/2 mx-3">

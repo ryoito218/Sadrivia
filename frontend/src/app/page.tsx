@@ -17,7 +17,7 @@ export default function Home() {
               <div className="flex">
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="category">Category</label>
-                  <select id="category">
+                  <select className="w-full h-10" id="category">
                     <option value="unselected">Unselected（未選択）</option>
                     <option value="history">History（歴史）</option>
                     <option value="person">Person（人物）</option>
@@ -30,11 +30,17 @@ export default function Home() {
                     <option value="goods">Goods（特産品）</option>
                     <option value="dialect">Dialect（方言）</option>
                   </select>
-                  <input type="text" id="category" className="w-full h-10" />
                 </div>
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="language">Language</label>
-                  <input type="text" id="language" className="w-full h-10" />
+                  <select className="w-full h-10" id="language">
+                    <option value="japanese">Japanese（日本語）</option>
+                    <option value="english">English（英語）</option>
+                    <option value="chinese1">Chinese（簡体字中国語）</option>
+                    <option value="chinese2">Chinese（繁体字中国語）</option>
+                    <option value="korean">Korean（韓国語）</option>
+                    <option value="mongolish">Mongolish（モンゴル語）</option>
+                  </select>
                 </div>
               </div>
               <div className="flex justify-center">

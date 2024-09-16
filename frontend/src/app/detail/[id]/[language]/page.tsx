@@ -31,37 +31,26 @@ const DetailView = async ({params}: {params: {id: string; language: string }}) =
                 </div>
                 
                 <div className="m-2">
-                  <h2 className="text-2xl">Map</h2>
-                  {
-                    trivia.address1 ?
-                    <iframe src={trivia.address1} width={400} height={300}></iframe> :
-                    <div></div>
-                  }  
+                  {trivia.address1 &&
+                  <div>
+                    <h2 className="text-2xl">Map</h2>
+                    <iframe src={trivia.address1} width={400} height={300}></iframe>
+                  </div>
+                  }
+                  
                 </div>
 
                 <div className="m-2">
-                  {
-                    trivia.address2 ?
-                    <iframe src={trivia.address1} width={400} height={300}></iframe> :
-                    <div></div>
-                  }  
+                  {trivia.address2 && <iframe src={trivia.address1} width={400} height={300}></iframe>}  
                 </div>
 
                 <div className="m-2">
                   <h2 className="text-2xl">Reference</h2>
-                  {
-                    trivia.url1 ?
-                    <Link href={trivia.url1}>{trivia.url1}</Link> :
-                    <div></div>
-                  }
+                  {trivia.url1 && <Link href={trivia.url1}>{trivia.url1}</Link>}
                 </div>
 
                 <div className="m-2">
-                  {
-                    trivia.url2 ?
-                    <Link href={trivia.url2}>{trivia.url2}</Link> :
-                    <div></div>
-                  }
+                  {trivia.url2 && <Link href={trivia.url2}>{trivia.url2}</Link>}
                 </div>
 
               </div>

@@ -38,7 +38,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-    console.log(trivias);
   }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,12 +56,12 @@ export default function Home() {
             <form onSubmit={handleSubmit} className="flex flex-col justify-center w-3/4">
               <div className="flex flex-col mx-3">
                 <label htmlFor="keyword">Keyword</label>
-                <input type="text" id="keyword" className="w-full h-10" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+                <input type="text" id="keyword" className="w-full h-10 p-2" value={keyword} onChange={(e) => setKeyword(e.target.value)} />
               </div>
               <div className="flex">
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="category">Category</label>
-                  <select className="w-full h-10" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                  <select className="w-full h-10 p-2" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="unselected">Unselected（未選択）</option>
                     <option value="history">History（歴史）</option>
                     <option value="person">Person（人物）</option>
@@ -78,7 +77,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col w-1/2 mx-3">
                   <label htmlFor="language">Language</label>
-                  <select className="w-full h-10" id="language" value={language} onChange={(e) => setLanguage(e.target.value)}>
+                  <select className="w-full h-10 p-2" id="language" value={language} onChange={(e) => setLanguage(e.target.value)}>
                     <option value="japanese">Japanese（日本語）</option>
                     <option value="english">English（英語）</option>
                     <option value="chinese1">Chinese（簡体字中国語）</option>
@@ -94,27 +93,40 @@ export default function Home() {
             </form>     
           </div>
 
-          {trivias.map((trivia) => (
-            <div key={trivia.id} className="flex flex-col my-3">
-              <div className="flex justify-center">
-                <Link href={`detail/${trivia.id}/${language}`} className="flex rounded overflow-hidden shadow-lg bg-white w-3/4 hover:opacity-75">
-                  <div className="px-6 py-4">
-                    <div className="font-bold text-xl mb-2">
-                      {
-                        language === "japanese" ? trivia.japanese :
-                        language === "english" ? trivia.english:
-                        language === "chinese1" ? trivia.chinese1:
-                        language === "chinese2" ? trivia.chinese2:
-                        language === "korean" ? trivia.korean:
-                        language === "mongolian" ? trivia.mongolian:
-                        trivia.japanese
-                      }
-                    </div>
+          { trivias.length ? 
+            <div>
+              {trivias.map((trivia, index) => (
+                <div key={trivia.id} className="flex flex-col my-3">
+                  <div className="flex justify-center">
+                    <Link href={`detail/${trivia.id}/${language}`} className="flex rounded overflow-hidden shadow-lg bg-white w-3/4 hover:opacity-75">
+                      <div className="px-6 py-4">
+                        <div className="font-bold text-xl mb-2">
+                          {index+1}. 
+                          {
+                            language === "japanese" ? trivia.japanese :
+                            language === "english" ? trivia.english:
+                            language === "chinese1" ? trivia.chinese1:
+                            language === "chinese2" ? trivia.chinese2:
+                            language === "korean" ? trivia.korean:
+                            language === "mongolian" ? trivia.mongolian:
+                            trivia.japanese
+                          }
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </Link>
+                </div>
+              ))}
+            </div>:
+            <div className="flex flex-col my-3">
+              <div className="flex justify-center">
+                <div className="w-3/4">
+                <p className="text-4xl m-3">Not Found</p>
+                </div>
               </div>
             </div>
-          ))}
+          }
+          
 
         </div>
         

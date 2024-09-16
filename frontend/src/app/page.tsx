@@ -95,27 +95,25 @@ export default function Home() {
           </div>
 
           {trivias.map((trivia) => (
-            <Link key={trivia.id} href={`detail/${trivia.id}/${language}`} className="hover:opacity-75">
-              <div className="flex flex-col my-3">
-                <div className="flex justify-center">
-                  <div className="flex rounded overflow-hidden shadow-lg bg-white w-3/4">
-                    <div className="px-6 py-4">
-                      <div className="font-bold text-xl mb-2">
-                        {
-                          language === "japanese" ? trivia.japanese :
-                          language === "english" ? trivia.english:
-                          language === "chinese1" ? trivia.chinese1:
-                          language === "chinese2" ? trivia.chinese2:
-                          language === "korean" ? trivia.korean:
-                          language === "mongolian" ? trivia.mongolian:
-                          trivia.japanese
-                        }
-                      </div>
+            <div key={trivia.id} className="flex flex-col my-3">
+              <div className="flex justify-center">
+                <Link href={`detail/${trivia.id}/${language}`} className="flex rounded overflow-hidden shadow-lg bg-white w-3/4 hover:opacity-75">
+                  <div className="px-6 py-4">
+                    <div className="font-bold text-xl mb-2">
+                      {
+                        language === "japanese" ? trivia.japanese :
+                        language === "english" ? trivia.english:
+                        language === "chinese1" ? trivia.chinese1:
+                        language === "chinese2" ? trivia.chinese2:
+                        language === "korean" ? trivia.korean:
+                        language === "mongolian" ? trivia.mongolian:
+                        trivia.japanese
+                      }
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
-            </Link>
+            </div>
           ))}
 
         </div>

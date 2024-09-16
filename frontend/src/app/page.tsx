@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import LoadingIcons from 'react-loading-icons';
+import { FormContext } from "@/context/FormProvider";
 
 type Trivia = {
   id: string;
@@ -20,9 +21,10 @@ type Trivia = {
 
 export default function Home() {
 
-  const [keyword, setKeyword] = useState<string>("");
-  const [category, setCategory] = useState<string>("unselected");
-  const [language, setLanguage] = useState<string>("japanese");
+  const { keyword, setKeyword, category, setCategory, language, setLanguage } = useContext(FormContext);
+  // const [keyword, setKeyword] = useState<string>("");
+  // const [category, setCategory] = useState<string>("unselected");
+  // const [language, setLanguage] = useState<string>("japanese");
   const [trivias, setTrivias] = useState<Trivia[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 

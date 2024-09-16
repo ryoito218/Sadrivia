@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import FormProvider from "@/context/FormProvider";
 
 export const metadata: Metadata = {
   title: "Sadrivia",
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="bg-gray-100">
-        {children}
+        <FormProvider>
+          {children}
+        </FormProvider>
       </body>
     </html>
   );

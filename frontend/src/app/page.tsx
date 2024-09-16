@@ -95,7 +95,7 @@ export default function Home() {
           </div>
 
           {trivias.map((trivia) => (
-            <Link key={trivia.id} href={`detail/${trivia.id}`} className="hover:opacity-75">
+            <Link key={trivia.id} href={`detail/${trivia.id}/${language}`} className="hover:opacity-75">
               <div className="flex flex-col my-3">
                 <div className="flex justify-center">
                   <div className="flex rounded overflow-hidden shadow-lg bg-white w-3/4">

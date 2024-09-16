@@ -23,9 +23,11 @@ export default function Home() {
   const [category, setCategory] = useState<string>("unselected");
   const [language, setLanguage] = useState<string>("japanese");
   const [trivias, setTrivias] = useState<Trivia[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(
         `http://127.0.0.1:8000/get_trivias?keyword=${keyword}&category=${category}&language=${language}`
       );
@@ -33,6 +35,8 @@ export default function Home() {
       setTrivias(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -93,41 +97,52 @@ export default function Home() {
             </form>     
           </div>
 
-          { trivias.length ? 
+          {isLoading ? (
+            <div className="flex justify-center my-3">
+              <div className="text-2xl">Loading...</div>
+            </div>
+          ) : trivias.length > 0 ? (
             <div>
               {trivias.map((trivia, index) => (
                 <div key={trivia.id} className="flex flex-col my-3">
                   <div className="flex justify-center">
-                    <Link href={`detail/${trivia.id}/${language}`} className="flex rounded overflow-hidden shadow-lg bg-white w-3/4 hover:opacity-75">
+                    <Link
+                      href={`detail/${trivia.id}/${language}`}
+                      className="flex rounded overflow-hidden shadow-lg bg-white w-3/4 hover:opacity-75"
+                    >
                       <div className="px-6 py-4">
                         <div className="font-bold text-xl mb-2">
-                          {index+1}. 
-                          {
-                            language === "japanese" ? trivia.japanese :
-                            language === "english" ? trivia.english:
-                            language === "chinese1" ? trivia.chinese1:
-                            language === "chinese2" ? trivia.chinese2:
-                            language === "korean" ? trivia.korean:
-                            language === "mongolian" ? trivia.mongolian:
-                            trivia.japanese
-                          }
+                          {index + 1}.
+                          {language === "japanese"
+                            ? trivia.japanese
+                            : language === "english"
+                            ? trivia.english
+                            : language === "chinese1"
+                            ? trivia.chinese1
+                            : language === "chinese2"
+                            ? trivia.chinese2
+                            : language === "korean"
+                            ? trivia.korean
+                            : language === "mongolian"
+                            ? trivia.mongolian
+                            : trivia.japanese}
                         </div>
                       </div>
                     </Link>
                   </div>
                 </div>
               ))}
-            </div>:
+            </div>
+          ) : (
             <div className="flex flex-col my-3">
               <div className="flex justify-center">
                 <div className="w-3/4">
-                <p className="text-4xl m-3">Not Found</p>
+                  <p className="text-4xl m-3">Not Found</p>
                 </div>
               </div>
             </div>
-          }
+          )}
           
-
         </div>
         
       </div>

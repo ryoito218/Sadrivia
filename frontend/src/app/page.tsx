@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link"
 import { useState, useEffect } from "react";
+import LoadingIcons from 'react-loading-icons';
 
 type Trivia = {
   id: string;
@@ -99,7 +100,7 @@ export default function Home() {
 
           {isLoading ? (
             <div className="flex justify-center my-3">
-              <div className="text-2xl">Loading...</div>
+              <LoadingIcons.TailSpin speed={5} stroke="#000000" width={100} height={100} />
             </div>
           ) : trivias.length > 0 ? (
             <div>
